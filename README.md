@@ -2,7 +2,11 @@
 
 Lost Animals Rescue là trò chơi mê cung giải cứu động vật, sử dụng các thuật toán AI gồm **BFS, DFS, A\*** và **Minimax**.
 
-## 1. Chức năng chính
+## 1. Giới thiệu
+
+Dự án mô phỏng trực quan các thuật toán tìm kiếm đường đi trong trí tuệ nhân tạo thông qua trò chơi mê cung. Người chơi chọn thuật toán, quan sát quá trình duyệt ô, đường đi cuối cùng và hành vi truy đuổi của kẻ địch.
+
+## 2. Chức năng chính
 
 - Đăng ký / đăng nhập tài khoản.
 - Lưu tài khoản và tiến trình người chơi bằng database.
@@ -15,10 +19,28 @@ Lost Animals Rescue là trò chơi mê cung giải cứu động vật, sử d�
   - Level 5: Bầu trời - 20x20
 - Chọn thuật toán rồi bấm **Bắt đầu giải cứu** để chạy.
 - Hiển thị quá trình duyệt ô và đường đi cuối cùng.
-- Kẻ địch dùng Minimax để truy đuổi.
+- Kẻ địch sử dụng Minimax để truy đuổi.
 - Có đồ họa, hiệu ứng, âm thanh và nhạc nền.
 
-## 2. Cấu trúc thư mục
+## 3. Thuật toán sử dụng
+
+### BFS
+
+BFS duyệt theo chiều rộng, phù hợp để tìm đường đi ngắn nhất trong mê cung khi các bước đi có cùng chi phí.
+
+### DFS
+
+DFS duyệt theo chiều sâu, có thể tìm được đường đi nhưng không đảm bảo đường đi ngắn nhất.
+
+### A\*
+
+A\* sử dụng hàm đánh giá kết hợp giữa chi phí đã đi và khoảng cách ước lượng đến đích, giúp tìm đường hiệu quả hơn trong nhiều trường hợp.
+
+### Minimax
+
+Minimax được sử dụng cho kẻ địch để mô phỏng hành vi truy đuổi nhân vật trong mê cung.
+
+## 4. Cấu trúc thư mục
 
 ```text
 LostAnimalsRescue/
@@ -52,13 +74,13 @@ LostAnimalsRescue/
     └── game.db
 ```
 
-Lưu ý: tên file database của bạn có thể là `game.db`, `users.db`, `database.db` hoặc tên khác. Chỉ cần code trong `database.py` đang trỏ đúng đến file đó.
+Lưu ý: tên file trong project có thể khác một chút tùy cách tổ chức. Chỉ cần các đường dẫn trong code được khai báo đúng.
 
-## 3. Cài đặt
+## 5. Cài đặt
 
-Yêu cầu Python 3.10 trở lên. Khuyến nghị Python 3.12.
+Khuyến nghị sử dụng Python 3.12.
 
-Kiểm tra Python:
+Kiểm tra phiên bản Python:
 
 ```bash
 python --version
@@ -70,19 +92,19 @@ Hoặc trên Windows:
 py --version
 ```
 
-Cài thư viện:
+Cài đặt thư viện cần thiết:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Nếu lỗi, dùng:
+Nếu lệnh trên không chạy, sử dụng:
 
 ```bash
 py -m pip install -r requirements.txt
 ```
 
-## 4. Chạy game
+## 6. Chạy chương trình
 
 Mở terminal tại thư mục project:
 
@@ -102,59 +124,57 @@ Hoặc trên Windows:
 py main.py
 ```
 
-Nếu dùng Python 3.12:
+Nếu sử dụng Python 3.12:
 
 ```bash
 py -3.12 main.py
 ```
 
-## 5. Âm thanh / nhạc nền
+## 7. Âm thanh và nhạc nền
 
-File nhạc nền nằm trong:
+File nhạc nền được đặt trong thư mục:
+
+```text
+assets/sounds/
+```
+
+Ví dụ:
 
 ```text
 assets/sounds/background.mp3
 ```
 
-Trong code nên dùng đường dẫn tương đối:
+Trong code nên sử dụng đường dẫn tương đối:
 
 ```python
 path = "assets/sounds/background.mp3"
 ```
 
-Không dùng đường dẫn tuyệt đối như:
+Không nên sử dụng đường dẫn tuyệt đối như:
 
 ```python
 path = "D:/AI/DOAN/LostAnimalsRescue/assets/sounds/background.mp3"
 ```
 
-vì bạn bè tải project về máy khác sẽ bị lỗi.
+Điều này giúp chương trình có thể chạy trên nhiều máy khác nhau mà không bị lỗi đường dẫn.
 
-## 6. Database
+## 8. Database
 
-Project có thể upload database mẫu để bạn bè tải về chạy được ngay.
+Dự án sử dụng database để lưu tài khoản và tiến trình người chơi.
 
-Ví dụ database nằm ở:
+Ví dụ database có thể nằm tại:
 
 ```text
 database/game.db
 ```
 
-Hoặc nằm trực tiếp ở thư mục gốc:
+Hoặc nằm trực tiếp trong thư mục gốc:
 
 ```text
 game.db
 ```
 
-Nếu upload database, cần kiểm tra:
-
-- Database không chứa mật khẩu thật quan trọng.
-- Nếu có tài khoản demo, nên dùng tài khoản đơn giản như:
-  - username: `demo`
-  - password: `123`
-- Code trong `database.py` phải dùng đường dẫn tương đối.
-
-Ví dụ đường dẫn nên dùng:
+Trong `database.py`, nên sử dụng đường dẫn tương đối, ví dụ:
 
 ```python
 DB_PATH = "database/game.db"
@@ -166,73 +186,78 @@ hoặc:
 DB_PATH = "game.db"
 ```
 
-Không nên dùng:
+Không nên sử dụng đường dẫn tuyệt đối như:
 
 ```python
 DB_PATH = "D:/AI/DOAN/LostAnimalsRescue/database/game.db"
 ```
 
+## 9. Tải dự án từ GitHub
 
-## 7. Bạn trong nhóm tải về
-
-### Cách 1: Clone bằng Git
+Có thể tải dự án bằng Git:
 
 ```bash
-git clone https://github.com/TEN_GITHUB_CUA_BAN/LostAnimalsRescue.git
+git clone https://github.com/Zhangin88/LostAnimalsRescue.git
 cd LostAnimalsRescue
 pip install -r requirements.txt
 python main.py
 ```
 
-Trên Windows có thể dùng:
+Trên Windows có thể sử dụng:
 
 ```bash
-git clone https://github.com/TEN_GITHUB_CUA_BAN/LostAnimalsRescue.git
+git clone https://github.com/Zhangin88/LostAnimalsRescue.git
 cd LostAnimalsRescue
 py -m pip install -r requirements.txt
 py main.py
 ```
 
-### Cách 2: Download ZIP
-
-Trên GitHub:
+Hoặc tải file ZIP trực tiếp trên GitHub:
 
 ```text
 Code → Download ZIP
 ```
 
-Sau đó giải nén, mở terminal trong thư mục project và chạy:
+Sau khi giải nén, mở terminal trong thư mục project và chạy:
 
 ```bash
 pip install -r requirements.txt
 python main.py
 ```
 
-## 8. Cập nhật code sau khi sửa
+## 10. Cập nhật project lên GitHub
 
-Mỗi lần sửa xong:
+Sau khi chỉnh sửa code, sử dụng các lệnh sau để cập nhật lên GitHub:
 
 ```bash
 git add .
-git commit -m "Update game"
+git commit -m "Update project"
 git push
 ```
 
-Bạn trong nhóm cập nhật code mới bằng:
+Kiểm tra trạng thái project:
 
 ```bash
-git pull
+git status
 ```
 
-## 10. Lưu ý khi public repository
+Nếu hiển thị:
 
-- MP3 không bản quyền thì có thể upload.
-- Có thể upload database mẫu nếu muốn bạn bè tải về chạy ngay.
-- Không nên upload tài khoản/mật khẩu thật quan trọng.
-- Không upload file video gốc `.mp4` vì thường nặng.
-- Không upload thư mục `venv`, `__pycache__`.
+```text
+nothing to commit, working tree clean
+```
 
-## 10. Lỗi thường gặp
+nghĩa là project hiện tại đã được lưu trong Git.
+
+## 11. Lưu ý khi public repository
+
+- Có thể upload file nhạc MP3 nếu file không vi phạm bản quyền.
+- Có thể upload database mẫu nếu cần chạy chương trình ngay sau khi tải.
+- Không nên upload tài khoản hoặc mật khẩu thật quan trọng.
+- Không nên upload file video gốc `.mp4` vì thường có dung lượng lớn.
+- Không upload thư mục `venv`, `.venv`, `__pycache__`.
+
+## 12. Lỗi thường gặp
 
 ### Lỗi thiếu pygame
 
@@ -240,15 +265,21 @@ git pull
 ModuleNotFoundError: No module named 'pygame'
 ```
 
-Sửa bằng:
+Cách sửa:
 
 ```bash
 pip install pygame
 ```
 
+Hoặc:
+
+```bash
+py -m pip install pygame
+```
+
 ### Lỗi không phát nhạc
 
-Kiểm tra file có tồn tại không:
+Kiểm tra file nhạc có tồn tại không:
 
 ```text
 assets/sounds/background.mp3
@@ -260,33 +291,34 @@ Kiểm tra đường dẫn trong code:
 path = "assets/sounds/background.mp3"
 ```
 
-### Lỗi không thấy database sau khi tải về
+### Lỗi không tìm thấy database
 
-Kiểm tra database có được upload chưa:
+Kiểm tra file database có tồn tại không:
 
 ```bash
 dir
 dir database
 ```
 
-Nếu code báo không tìm thấy database, kiểm tra đường dẫn trong `database.py`.
+Nếu chương trình báo lỗi không tìm thấy database, kiểm tra lại đường dẫn trong `database.py`.
 
 ### Lỗi chạy sai thư mục
 
-Cần chạy từ thư mục gốc:
+Cần chạy chương trình từ thư mục gốc của project:
 
 ```bash
 cd LostAnimalsRescue
 python main.py
 ```
 
-Không chạy trực tiếp từ thư mục `screens`.
+Không nên chạy trực tiếp từ thư mục `screens`.
 
-## 11. Thành viên
+## 13. Thành viên thực hiện
 
 - Châu Hữu Nghị - 24110036
-- Trần Hữu Lộc -  24110275
+- Trần Hữu Lộc - 24110275
 - Trịnh Văn Phú Hào - 24110013
-## 12. Mục tiêu đồ án
 
-Mục tiêu của đồ án là mô phỏng trực quan các thuật toán tìm kiếm đường đi trong trí tuệ nhân tạo thông qua trò chơi mê cung. Người chơi có thể so sánh BFS, DFS, A* và quan sát Minimax trong hành vi truy đuổi của kẻ địch.
+## 14. Mục tiêu đồ án
+
+Mục tiêu của đồ án là xây dựng trò chơi mê cung có áp dụng các thuật toán trí tuệ nhân tạo, giúp trực quan hóa quá trình tìm kiếm đường đi và so sánh hoạt động của BFS, DFS, A\* và Minimax trong môi trường trò chơi.
