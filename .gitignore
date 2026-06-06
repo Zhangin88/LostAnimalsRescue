@@ -1,0 +1,31 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+venv/
+.venv/
+env/
+.env
+
+*.log
+
+.DS_Store
+Thumbs.db
+
+# Không nên upload video gốc vì thường nặng
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Cho phép upload database mẫu
+# Không chặn các file sau:
+# *.db
+# *.sqlite
+# *.sqlite3
+
+# Cho phép upload nhạc nền
+# *.mp3
+# *.ogg
+# *.wav
